@@ -1,6 +1,6 @@
 # nucleagent-shared
 
-共享类型库：GORM model + 协议类型。被 core / auth / executor 依赖。
+共享类型库：GORM model + 协议类型。被 core / executor 依赖。
 
 ## 构建
 
