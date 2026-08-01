@@ -18,7 +18,10 @@ type Conversation struct {
 	State       JSON       `json:"state" gorm:"column:state;type:json;comment:编排状态(plan/context/pending_question)"`
 	HeartbeatAt *time.Time `json:"heartbeatAt" gorm:"column:heartbeat_at;comment:Executor心跳时间(高频更新)"`
 	LeaseUntil  *time.Time `json:"leaseUntil" gorm:"column:lease_until;comment:Executor租约截止(高频更新)"`
-	CreatedAt   time.Time  `json:"createdAt" gorm:"column:created_at;comment:创建时间"`
-	UpdatedAt   time.Time  `json:"updatedAt" gorm:"column:updated_at;comment:更新时间"`
-	CompletedAt *time.Time `json:"completedAt" gorm:"column:completed_at;comment:完成时间"`
+	// ExecutionNonce 调度所有权 fencing（附录 §7.4）：= dispatch token UUID。
+	// AcquireTaskLease 用它做乐观所有权判定，防止僵死 worker 覆盖新调度。
+	ExecutionNonce string     `json:"executionNonce" gorm:"column:execution_nonce;size:64;comment:调度所有权nonce(fencing)"`
+	CreatedAt      time.Time  `json:"createdAt" gorm:"column:created_at;comment:创建时间"`
+	UpdatedAt      time.Time  `json:"updatedAt" gorm:"column:updated_at;comment:更新时间"`
+	CompletedAt    *time.Time `json:"completedAt" gorm:"column:completed_at;comment:完成时间"`
 }
