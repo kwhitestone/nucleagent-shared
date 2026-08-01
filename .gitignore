@@ -1,7 +1,19 @@
+# Go build artifacts
+*.exe
+*.dll
+*.so
+*.dylib
+vendor/
+
 # IDE
 .vscode/
 .idea/
+*.swp
 
 # OS
 .DS_Store
 Thumbs.db
+
+# Local env
+.env
+.env.local
